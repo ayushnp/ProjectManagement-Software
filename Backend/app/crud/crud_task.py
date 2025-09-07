@@ -9,7 +9,8 @@ def get_task(db: Session, task_id:int) -> Task | None:
 
 def get_tasks_by_project(db: Session,*, project_id:int) -> list[Task]:
     statement=select(Task).where(Task.project_id == project_id)
-    return db.exec(statement).all()
+    tasks=db.exec(statement).all()
+    return tasks
 
 def create_task(db: Session,*, task_in:TaskCreate,project_id:int) -> Task:
     db_task = Task.model_validate(task_in,update={"project_id":project_id})

@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel
-from typing import List
+from typing import List, Optional
 from app.schemas.user_schemas import UserPublic
 from app.schemas.task_schemas import TaskRead
 
@@ -20,4 +20,7 @@ class ProjectDetail(ProjectBase):
     tasks:List[TaskRead]=[]
 
 
-
+class ProjectUpdate(SQLModel):
+    """Schema for updating a project's details."""
+    name: Optional[str] = None
+    description: Optional[str] = None
