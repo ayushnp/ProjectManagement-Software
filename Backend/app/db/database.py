@@ -1,6 +1,8 @@
-from sqlalchemy import engine
+
 from sqlmodel import create_engine, SQLModel, Session
-from Backend.app.core.config import settings
+from app.core.config import settings
+from app.models.user_models import User, ProjectMemberLink
+from app.models.project_models import Project, Task, Comment
 
 engine=create_engine(settings.DATABASE_URL,echo=True)
 

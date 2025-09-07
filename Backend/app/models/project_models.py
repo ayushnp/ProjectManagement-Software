@@ -1,8 +1,8 @@
 from datetime import datetime
 from enum import Enum
-from typing import List
-from sqlmodel import SQLModel,Field,Relationship
-from .user_models import User,ProjectMemberLink
+from sqlmodel import SQLModel,Field
+
+
 
 class TaskStatus(str, Enum):
     TO_DO="To-Do"
@@ -16,9 +16,6 @@ class Project(SQLModel,table=True):
     created_at:datetime=Field(default_factory=datetime.now,nullable=False)
     owner_id:int=Field(foreign_key="user.id")
 
-    members: List["User"] = Relationship(back_populates="projects", link_model=ProjectMemberLink)
-    tasks: List["Task"] = Relationship(back_populates="project")
-    comments: List["Comment"] = Relationship(back_populates="project")
 
 
 class Task(SQLModel,table=True):
@@ -40,6 +37,5 @@ class Comment(SQLModel,table=True):
     project_id:int=Field(foreign_key="project.id")
     author_id:int=Field(foreign_key="user.id")
 
-    project: "Project" = Relationship(back_populates="comments")
-    author: "User" = Relationship(back_populates="comments")
+
 
